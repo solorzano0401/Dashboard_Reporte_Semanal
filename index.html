@@ -130,22 +130,10 @@
           <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
         </button>
 
-        <!-- Export CSV Button -->
-        <button id="exportCsvBtn" class="flex items-center gap-2 px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
-          <i class="fa-solid fa-file-csv text-emerald-500"></i>
-          <span>Exportar Data</span>
-        </button>
-
-        <!-- Limpiar / Reiniciar Data Button -->
-        <button id="resetDataBtn" class="flex items-center gap-2 px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 border-rose-200/80 dark:border-rose-900/40 transition-all shadow-sm">
-          <i class="fa-solid fa-rotate-left text-rose-500"></i>
-          <span>Limpiar Data</span>
-        </button>
-
-        <!-- Actualizar Reporte / Modal trigger -->
+        <!-- Menú Consolidado: Actualizar Reporte / Opciones -->
         <button id="openFeedModalBtn" class="flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all shadow-md shadow-blue-500/20 active:scale-95">
-          <i class="fa-solid fa-file-excel text-xs"></i>
-          <span>Actualizar Reporte</span>
+          <i class="fa-solid fa-sliders text-xs"></i>
+          <span>Opciones de Reporte</span>
         </button>
       </div>
     </header>
@@ -377,42 +365,75 @@
 
   </div>
 
-  <!-- Actualizar Reporte / Excel Modal -->
+  <!-- Consolidated "Opciones de Reporte" Modal -->
   <div id="feedModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200 p-4">
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-200" id="feedModalContainer">
       <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold flex items-center justify-center border border-emerald-500/20">
-            <i class="fa-solid fa-file-excel text-lg"></i>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center border border-blue-500/20">
+            <i class="fa-solid fa-sliders text-lg"></i>
           </div>
           <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Actualizar Reporte</h3>
-            <p class="text-xs text-slate-400">Importa datos desde tu archivo Excel o CSV</p>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Opciones de Reporte</h3>
+            <p class="text-xs text-slate-400">Actualiza, sincroniza o gestiona los datos</p>
           </div>
         </div>
-        <button onclick="closeFeedModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg">
+        <button onclick="closeFeedModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition-colors">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <div class="p-6 space-y-5">
-        <!-- Drag & Drop Zone -->
-        <div id="dropZone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-6 flex flex-col items-center justify-center text-center bg-slate-50/50 dark:bg-slate-800/30 transition-all cursor-pointer">
-          <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" class="hidden">
-          <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-500 flex items-center justify-center mb-3 text-xl">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
+      <div class="p-6 space-y-6">
+        <!-- Local Upload Zone -->
+        <div>
+          <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-file-excel text-emerald-500"></i> Cargar Archivo Local
+          </h4>
+          <div id="dropZone" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-6 flex flex-col items-center justify-center text-center bg-slate-50/50 dark:bg-slate-800/30 transition-all cursor-pointer">
+            <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" class="hidden">
+            <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-500 flex items-center justify-center mb-3 text-xl">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Arrastra tu archivo Excel aquí</p>
+            <p class="text-xs text-slate-400 mt-1">Soporta <span class="font-mono text-emerald-500">.xlsx</span>, <span class="font-mono text-emerald-500">.xls</span>, <span class="font-mono text-emerald-500">.csv</span>.</p>
+            <button type="button" onclick="document.getElementById('excelFileInput').click()" class="mt-4 px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-md shadow-blue-500/20">
+              Examinar archivo
+            </button>
           </div>
-          <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Arrastra tu archivo Excel aquí</p>
-          <p class="text-xs text-slate-400 mt-1">Soporta <span class="font-mono text-emerald-500">.xlsx</span>, <span class="font-mono text-emerald-500">.xls</span>, <span class="font-mono text-emerald-500">.csv</span>. Cada carga crea automáticamente una <span class="font-semibold text-blue-500">nueva semana</span>.</p>
-          <button type="button" onclick="document.getElementById('excelFileInput').click()" class="mt-4 px-4 py-2 text-xs font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-md shadow-blue-500/20">
-            Examinar archivo
-          </button>
+        </div>
+
+        <!-- Extra Actions Grid -->
+        <div>
+          <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-amber-500"></i> Acciones Adicionales
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            
+            <!-- Sincronizar Nube -->
+            <button onclick="syncCloudDataAsNewWeek()" class="flex flex-col items-center justify-center p-3 gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all shadow-sm group">
+              <i class="fa-solid fa-cloud-arrow-down text-blue-500 text-xl group-hover:scale-110 transition-transform"></i>
+              <span class="text-xs font-semibold text-center leading-tight">Sincronizar<br>Nube</span>
+            </button>
+            
+            <!-- Exportar Data -->
+            <button id="exportCsvBtnModal" class="flex flex-col items-center justify-center p-3 gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all shadow-sm group">
+              <i class="fa-solid fa-file-csv text-emerald-500 text-xl group-hover:scale-110 transition-transform"></i>
+              <span class="text-xs font-semibold text-center leading-tight">Exportar<br>Data</span>
+            </button>
+
+            <!-- Limpiar Data -->
+            <button id="resetDataBtnModal" class="flex flex-col items-center justify-center p-3 gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-slate-700 hover:border-rose-200 dark:hover:border-rose-900 text-slate-700 dark:text-slate-200 transition-all shadow-sm group">
+              <i class="fa-solid fa-rotate-left text-rose-500 text-xl group-hover:scale-110 transition-transform"></i>
+              <span class="text-xs font-semibold text-center leading-tight">Limpiar<br>Data</span>
+            </button>
+
+          </div>
         </div>
       </div>
 
       <div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex justify-end">
         <button onclick="closeFeedModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition-colors">
-          Cerrar
+          Cerrar Menú
         </button>
       </div>
     </div>
@@ -531,11 +552,68 @@
     // Global state initialized from template
     let state = JSON.parse(JSON.stringify(INITIAL_STATE));
 
+    // --- Persistencia compartida en la nube (Google Sheets vía Apps Script) ---
+    const SHEETS_API_URL = "https://script.google.com/macros/s/AKfycbwCWr5Sbc2RV8pd0fgh37x4FCsp35DgjTdtVyZCE0VnrmN1OvzV6jVEkNDCmaSce7YaDQ/exec";
+
+    // Guarda el estado tanto localmente (respaldo offline) como en la nube (compartido)
+    function guardarDatosEnNavegador() {
+      localStorage.setItem('dashboard_state_mac', JSON.stringify(state));
+      guardarDatosEnLaNube();
+    }
+
+    async function guardarDatosEnLaNube() {
+      try {
+        await fetch(SHEETS_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // evita preflight CORS
+          body: JSON.stringify(state)
+        });
+      } catch (e) {
+        console.error("Error al guardar en la nube:", e);
+      }
+    }
+
+    // Carga el estado desde la nube; si falla, usa el respaldo local
+    async function cargarDatosDelNavegador() {
+      try {
+        const response = await fetch(SHEETS_API_URL, { method: 'GET', cache: 'no-store' });
+        if (!response.ok) throw new Error('Respuesta no válida del servidor.');
+        const text = await response.text();
+        if (text && text.trim().length > 0) {
+          const parsedState = JSON.parse(text);
+          if (parsedState && parsedState.weeks) {
+            state = parsedState;
+            localStorage.setItem('dashboard_state_mac', JSON.stringify(state)); // sincroniza respaldo local
+            return;
+          }
+        }
+        cargarDesdeRespaldoLocal();
+      } catch (e) {
+        console.error("Error al cargar datos de la nube, usando respaldo local:", e);
+        cargarDesdeRespaldoLocal();
+      }
+    }
+
+    function cargarDesdeRespaldoLocal() {
+      const datosGuardados = localStorage.getItem('dashboard_state_mac');
+      if (datosGuardados) {
+        try {
+          const parsedState = JSON.parse(datosGuardados);
+          if (parsedState && parsedState.weeks) {
+            state = parsedState;
+          }
+        } catch (e) {
+          console.error("Error al cargar datos de localStorage:", e);
+        }
+      }
+    }
+
     // Reset Data Logic & Modal Controls
     const resetModal = document.getElementById('resetModal');
     const resetModalContainer = document.getElementById('resetModalContainer');
 
-    document.getElementById('resetDataBtn').addEventListener('click', () => {
+    document.getElementById('resetDataBtnModal').addEventListener('click', () => {
+      closeFeedModal(); // Cerramos primero el menú de opciones
       resetModal.classList.remove('hidden');
       setTimeout(() => {
         resetModal.classList.remove('opacity-0');
@@ -553,6 +631,7 @@
 
     function confirmResetData() {
       state = JSON.parse(JSON.stringify(INITIAL_STATE));
+      guardarDatosEnNavegador(); // Guardar el reseteo en localStorage
       document.getElementById('searchInput').value = '';
       document.getElementById('lastUpdate').textContent = '26/07/2026 05:00 PM';
       closeResetModal();
@@ -572,6 +651,56 @@
     let teamChartInstance = null;
     let dailyChartInstance = null;
     let modalChartInstance = null;
+
+    // Abre el modal de detalle individual para un integrante del equipo (por nombre)
+    function openDetailModalByName(name) {
+      const activeW = getActiveWeek();
+      const member = activeW.team.find(m => m.name === name);
+      if (!member) return;
+
+      const idx = activeW.team.indexOf(member);
+      const color = MEMBER_COLORS[idx % MEMBER_COLORS.length];
+
+      document.getElementById('modalName').textContent = member.name;
+      document.getElementById('modalAvatar').textContent = member.name.substring(0, 2).toUpperCase();
+      document.getElementById('modalAvatar').style.backgroundColor = `${color}1A`;
+      document.getElementById('modalAvatar').style.color = color;
+      document.getElementById('modalAssigned').textContent = member.assigned;
+      document.getElementById('modalCompleted').textContent = member.completed;
+      document.getElementById('modalPending').textContent = member.pending;
+
+      const ctx = document.getElementById('modalChart').getContext('2d');
+      if (modalChartInstance) modalChartInstance.destroy();
+      modalChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
+          datasets: [{
+            label: 'Completados',
+            data: member.daily || [0, 0, 0, 0, 0],
+            backgroundColor: color,
+            borderRadius: 6,
+            maxBarThickness: 40
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, ticks: { precision: 0 } }
+          }
+        }
+      });
+
+      const modal = document.getElementById('detailModal');
+      const container = document.getElementById('modalContainer');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        container.classList.remove('scale-95');
+      }, 10);
+    }
     let doughnutChartInstance = null;
 
     // Theme Switcher Logic
@@ -644,6 +773,7 @@
 
     function changeWeek(weekId) {
       state.currentWeekId = weekId;
+      guardarDatosEnNavegador(); // Guardar selección de semana activa
       renderAll();
       showToast(`Mostrando datos de: ${getActiveWeek().name}`, 'info');
     }
@@ -870,7 +1000,7 @@
       renderFilterButtons();
       renderTable();
       initTeamChart();
-      initDailyChart(); // Sincronización agregada
+      initDailyChart();
     }
 
     function renderTable() {
@@ -963,7 +1093,7 @@
 
       if (!weekNum && workbook && workbook.SheetNames && workbook.SheetNames.length > 0) {
         const sheetName = workbook.SheetNames[0];
-        const sheetMatch = sheetName.match(/semana[_\s-]*(\d+)/i) || sheetMatch.match(/sem[_\s-]*(\d+)/i);
+        const sheetMatch = sheetName.match(/semana[_\s-]*(\d+)/i);
         if (sheetMatch && sheetMatch[1]) {
           weekNum = parseInt(sheetMatch[1]);
         }
@@ -988,6 +1118,41 @@
       };
     }
 
+    // --- Sincronización Automática desde Google Sheets / Nube ---
+    async function syncCloudDataAsNewWeek() {
+      closeFeedModal(); // Cerrar modal de opciones primero
+      
+      const defaultUrl = "https://docs.google.com/spreadsheets/d/TU_ID_DE_HOJA/export?format=csv";
+      const sheetCsvUrl = prompt("Ingresa el enlace CSV publicado de tu Google Sheet:", defaultUrl);
+      
+      if (!sheetCsvUrl || sheetCsvUrl === defaultUrl) {
+        if (!sheetCsvUrl) return;
+        showToast('Por favor, ingresa un enlace de Google Sheet válido.', 'error');
+        return;
+      }
+
+      try {
+        showToast('Sincronizando datos desde la nube...', 'info');
+        
+        const response = await fetch(sheetCsvUrl);
+        if (!response.ok) throw new Error('No se pudo acceder al archivo en la nube.');
+        
+        const arrayBuffer = await response.arrayBuffer();
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        parseAndApplyExcel(jsonData, "Cloud_Google_Sheets.csv", workbook);
+        showToast('¡Nueva semana sincronizada desde la nube con éxito!', 'success');
+      } catch (error) {
+        console.error('Error de sincronización remota:', error);
+        showToast('Error al conectar con la hoja de cálculo en la nube.', 'error');
+      }
+    }
+
+    // Modal de Opciones Consolidadas
     const feedModal = document.getElementById('feedModal');
     const feedModalContainer = document.getElementById('feedModalContainer');
     const openFeedModalBtn = document.getElementById('openFeedModalBtn');
@@ -1170,11 +1335,11 @@
 
       state.weeks.push(newWeek);
       state.currentWeekId = newWeek.id;
+      guardarDatosEnNavegador(); // Guardar automáticamente en localStorage
 
       const now = new Date();
       document.getElementById('lastUpdate').textContent = `${now.toLocaleDateString('es-ES')} ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
 
-      // Fixed: Removed the malformed confetti block and duplicate function definition
       confetti();
       renderAll();
       showToast('Archivo importado con éxito.', 'success');
@@ -1195,7 +1360,8 @@
       if (e.target === document.getElementById('detailModal')) closeDetailModal();
     });
 
-    document.getElementById('exportCsvBtn').addEventListener('click', () => {
+    document.getElementById('exportCsvBtnModal').addEventListener('click', () => {
+      closeFeedModal(); // Cerramos el menú
       const activeW = getActiveWeek();
       let csv = `Reporte: ${activeW.name}\n`;
       csv += 'Integrante,Asignados,Completados,Pendientes,Progreso (%),Lunes,Martes,Miércoles,Jueves,Viernes\n';
@@ -1217,9 +1383,11 @@
       showToast(`Archivo CSV de "${activeW.name}" generado con éxito.`);
     });
 
-    window.onload = function() {
+    // Inicialización al cargar la página con persistencia compartida en la nube
+    window.addEventListener('DOMContentLoaded', async () => {
+      await cargarDatosDelNavegador();
       renderAll();
-    };
+    });
   </script>
 </body>
 </html>
